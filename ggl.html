@@ -13,16 +13,25 @@
 	canvas{
 	    position: absolute;
     left: 0;
-    right: 0;
-    bottom: 0;
+ 
+   
     top: 0;
     margin: auto;}
+	img{
+	width: 215px;
+    height: 190px;
+    position: absolute;
+    left: 0;
+   
+    top: 0;
+    margin: auto;
+    z-index: 0;}
   </style>
 </head>
 
 <body>
-  
-  <canvas width="600" height="600"></canvas>
+  <img src="./images/xin_solid.png" />
+  <canvas width="300" height="300"></canvas>
 
 </body>
 
@@ -31,7 +40,7 @@
 var cas = document.querySelector('canvas')
 var ctx = cas.getContext('2d')
 
-ctx.fillRect(0, 0, 600, 600)
+ctx.fillRect(0, 0, 300, 300)
 
 // 开关
 var isClear = false
@@ -39,15 +48,33 @@ var isClear = false
 cas.addEventListener('mousedown', function () {
   isClear = true
 })
+cas.ontouchstart=function(){
+console.log(22)
+  isClear = true
+}
 
+cas.ontouchmove=function (e) {
+console.log(e)
+  if (!isClear) {
+    return
+  }
+  var x = e.touches[0].clientX
+  var y = e.touches[0].clientY
+  var w = 30
+  var h = 30
+  ctx.clearRect(x, y, w, h)
+}
+cas.ontouchend= function () {
+  isClear = false
+}
 cas.addEventListener('mousemove', function (e) {
   if (!isClear) {
     return
   }
   var x = e.offsetX
   var y = e.offsetY
-  var w = 20
-  var h = 20
+  var w = 30
+  var h = 30
   ctx.clearRect(x, y, w, h)
 })
 
